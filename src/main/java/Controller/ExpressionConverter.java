@@ -1,5 +1,6 @@
-package Model;
+package Controller;
 
+import Model.Expression;
 import Stack.LinkedStack;
 
 import java.util.ArrayList;
@@ -54,6 +55,42 @@ public class ExpressionConverter {
             System.out.println(" ");
         }
         return postfix.toString();
+    }
+
+    //infix to prefix
+    public static String infixToPrefix(Expression infixExpression) {
+        StringBuilder infix = new StringBuilder(infixExpression.getExpressionString());
+        StringBuilder prefix = new StringBuilder();
+        LinkedStack<Character> operatorStack = new LinkedStack<Character>();
+        int counter = infix.length() - 1;
+        while (counter >= 0) {
+            Character currentCharacter = infix.charAt(counter);
+            counter--;
+            if (Character.isAlphabetic(currentCharacter) || Character.isDigit(currentCharacter)) {
+                prefix.append(currentCharacter);
+            } else if (currentCharacter == '^') {
+                prefix.append(" ");
+                operatorStack.push(currentCharacter);
+            } else if (currentCharacter == '+' || currentCharacter == '-' || currentCharacter == '*' || currentCharacter == '/') {
+                while (!operatorStack.isEmpty() && getPrecedence(currentCharacter) <= getPrecedence(operatorStack.peek())) {
+                    prefix.append(" ");
+                    prefix.append(operatorStack.pop());
+                    prefix.append(" ");
+                }
+                operatorStack.push(currentCharacter);
+            } else if (currentCharacter == '(') {
+                Character lastOperator = operatorStack.pop();
+                while (lastOperator != ')') {
+                    prefix.append(" ");
+                    prefix.append(lastOperator);
+                    prefix.append(" ");
+                    lastOperator = operatorStack.pop();
+                }
+            } else if (currentCharacter == ')') {
+                operatorStack.push(currentCharacter);
+            }
+        }
+        return prefix.reverse().toString();
     }
 
     public static int getPrecedence(Character operator) {

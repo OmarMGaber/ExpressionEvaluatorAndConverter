@@ -36,6 +36,8 @@ public class Expression {
         return parentheses.isEmpty();
     }
 
+
+
     @Override
     public String toString() {
         return '(' + expressionString + ')';

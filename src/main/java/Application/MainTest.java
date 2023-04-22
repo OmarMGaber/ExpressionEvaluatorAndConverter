@@ -1,16 +1,12 @@
 package Application;
 
 import Model.Expression;
-import Model.ExpressionConverter;
+import Controller.ExpressionConverter;
 
 public class MainTest {
     public static void main(String[] args) {
-        System.out.println("dasdasd");
-        ExpressionConverter expressionConverter = new ExpressionConverter();
-        Expression expression = new Expression("(a+b    )())(^(a+b*c)");
-        System.out.println(expressionConverter.infixToPostfix(expression));
-        System.out.println(expression.isBalanced());
-        System.out.println(expression);
-        System.out.println();
+        Expression expression = new Expression("a+b*c");
+        System.out.println(ExpressionConverter.infixToPostfix(expression));
+        System.out.println(ExpressionConverter.infixToPrefix(expression));
     }
 }

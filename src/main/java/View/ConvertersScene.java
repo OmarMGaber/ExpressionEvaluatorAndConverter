@@ -2,10 +2,11 @@ package View;
 
 import Application.Main;
 import Model.Expression;
-import Model.ExpressionConverter;
+import Controller.ExpressionConverter;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Background;
@@ -24,6 +25,8 @@ public class ConvertersScene implements Scene {
 
     TextField resultMessage;
     TextField expressionTextField;
+
+    ComboBox options;
 
     Button convertButton;
     Button evaluateButton;
@@ -46,6 +49,7 @@ public class ConvertersScene implements Scene {
         expressionTextField = new TextField("");
         convertButton = new Button("Convert");
         evaluateButton = new Button("Evaluate");
+        options = new ComboBox<>();
         gridPane = new GridPane();
     }
 
@@ -54,6 +58,7 @@ public class ConvertersScene implements Scene {
         gridPane.add(titleLabel, 0, 3, 5, 1);
         gridPane.add(enterLabel, 0, 8, 2, 1);
         gridPane.add(expressionTextField, 0, 9, 2, 1);
+        gridPane.add(options, 2, 9);
         gridPane.add(convertButton, 0, 10);
         gridPane.add(resultLabel, 0, 16);
         gridPane.add(resultMessage, 0, 17);
@@ -74,6 +79,8 @@ public class ConvertersScene implements Scene {
         titleLabel.getStyleClass().add("title");
 
         enterLabel.getStyleClass().add("label");
+
+        options.getItems().addAll("Infix to Postfix", "Infix to Prefix", "Postfix to Infix", "Postfix to Prefix", "Prefix to Infix", "Prefix to Postfix");
 
         resultLabel.getStyleClass().add("label");
         resultLabel.setStyle("-fx-font-weight: bold");
@@ -97,6 +104,8 @@ public class ConvertersScene implements Scene {
                 resultMessage.setText("Invalid input (Unbalanced expression)");
             }
         });
+
+
 
         evaluateButton.setOnAction(actionEvent -> {
             //LandingScene landingScene = new LandingScene();
