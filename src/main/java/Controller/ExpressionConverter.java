@@ -57,7 +57,6 @@ public class ExpressionConverter {
         return postfix.toString();
     }
 
-    //infix to prefix
     public static String infixToPrefix(Expression infixExpression) {
         StringBuilder infix = new StringBuilder(infixExpression.getExpressionString());
         StringBuilder prefix = new StringBuilder();
