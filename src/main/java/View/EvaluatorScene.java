@@ -1,6 +1,8 @@
 package View;
 
 import Application.Main;
+import Controller.ExpressionEvaluator;
+import Model.Expression;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -13,9 +15,13 @@ public class EvaluatorScene implements Scene {
 
     final int WIDTH = 800, HEIGHT = 600;
 
+    ExpressionEvaluator expressionEvaluator = new ExpressionEvaluator();
+
     Label titleLabel;
     Label enterLabel;
     Label resultLabel;
+    Label notationTypeLabel;
+    Label typeLabel;
 
     TextField resultMessage;
     TextField expressionTextField;
@@ -37,8 +43,10 @@ public class EvaluatorScene implements Scene {
         titleLabel = new Label("Evaluate Expression\t\t\t\t");
         enterLabel = new Label("Enter the expression below");
         resultLabel = new Label("Result:");
+        notationTypeLabel = new Label("Notation Type:");
+        typeLabel = new Label("");
         resultMessage = new TextField("");
-        expressionTextField = new TextField("");
+        expressionTextField = new TextField(ConvertersScene.resultMessageString);
         convertButton = new Button("Convert");
         evaluateButton = new Button("Evaluate");
         gridPane = new GridPane();
@@ -49,6 +57,8 @@ public class EvaluatorScene implements Scene {
         gridPane.add(titleLabel, 0, 3, 5, 1);
         gridPane.add(enterLabel, 0, 8, 2, 1);
         gridPane.add(expressionTextField, 0, 9, 2, 1);
+        gridPane.add(notationTypeLabel, 2, 9);
+        gridPane.add(typeLabel, 3, 9);
         gridPane.add(evaluateButton, 0, 10);
         gridPane.add(resultLabel, 0, 16);
         gridPane.add(resultMessage, 0, 17);
@@ -73,6 +83,10 @@ public class EvaluatorScene implements Scene {
 
         resultLabel.getStyleClass().add("label");
         resultLabel.setStyle("-fx-font-weight: bold");
+
+        notationTypeLabel.getStyleClass().add("label");
+        notationTypeLabel.setStyle("-fx-font-weight: bold");
+
         resultMessage.getStyleClass().add("text-field");
 
         expressionTextField.getStyleClass().add("text-field");
@@ -89,6 +103,12 @@ public class EvaluatorScene implements Scene {
             Stage stage = Main.getStage();
             stage.setTitle("Expression Converter");
             stage.setScene(convertersScene.getScene());
+        });
+
+        evaluateButton.setOnAction(actionEvent -> {
+            Expression expression = new Expression(expressionTextField.getText());
+            typeLabel.setText(expression.getNotationType());
+            resultMessage.setText(String.valueOf(expressionEvaluator.evaluateExpression(expression)));
         });
     }
 

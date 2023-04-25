@@ -26,6 +26,8 @@ public class ConvertersScene implements Scene {
     TextField resultMessage;
     TextField expressionTextField;
 
+    static String resultMessageString;
+
     ComboBox options;
 
     Button convertButton;
@@ -81,6 +83,7 @@ public class ConvertersScene implements Scene {
         enterLabel.getStyleClass().add("label");
 
         options.getItems().addAll("Infix to Postfix", "Infix to Prefix", "Postfix to Infix", "Postfix to Prefix", "Prefix to Infix", "Prefix to Postfix");
+        options.setValue("Infix to Postfix");
 
         resultLabel.getStyleClass().add("label");
         resultLabel.setStyle("-fx-font-weight: bold");
@@ -88,6 +91,7 @@ public class ConvertersScene implements Scene {
 
         expressionTextField.getStyleClass().add("text-field");
 
+        options.getStyleClass().add("button");
         convertButton.getStyleClass().add("button");
     }
 
@@ -95,19 +99,40 @@ public class ConvertersScene implements Scene {
     public void addActions() {
         convertButton.setOnAction(actionEvent -> {
             Expression expression = new Expression(expressionTextField.getText());
-            if (expression.isBalanced()) {
-                resultMessage.setBackground(new Background(new BackgroundFill(Color.WHITE, null, null)));
-                ExpressionConverter expressionConverter = new ExpressionConverter();
-                resultMessage.setText(expressionConverter.infixToPostfix(expression));
-            } else {
-                resultMessage.setBackground(new Background(new BackgroundFill(Color.WHITE, null, null)));
-                resultMessage.setText("Invalid input (Unbalanced expression)");
+            switch (options.getValue().toString()) {
+                case "Infix to Postfix":
+                    if (expression.isBalanced()) {
+                        resultMessage.setStyle("-fx-text-fill: BLACK");
+                        ExpressionConverter expressionConverter = new ExpressionConverter();
+                        expressionConverter.drawTable();
+                        resultMessage.setText(expressionConverter.infixToPostfix(expression));
+                    } else {
+                        resultMessage.setStyle("-fx-text-fill: RED");
+                        resultMessage.setText("Invalid input (Unbalanced expression)");
+                    }
+                    break;
+                case "Infix to Prefix":
+                    resultMessage.setText("Infix to Prefix");
+                    break;
+                case "Postfix to Prefix":
+                    resultMessage.setText("Postfix to Prefix");
+                    break;
+                case "Postfix to Infix":
+                    resultMessage.setText("Postfix to Infix");
+                    break;
+                case "Prefix to Infix":
+                    resultMessage.setText("Prefix to Infix");
+                    break;
+                case "Prefix to Postfix":
+                    resultMessage.setText("Prefix to Postfix");
+                    break;
+                default:
+                    resultMessage.setText("Invalid type");
             }
         });
 
-
-
         evaluateButton.setOnAction(actionEvent -> {
+            resultMessageString = resultMessage.getText();
             //LandingScene landingScene = new LandingScene();
             EvaluatorScene evaluatorScene = new EvaluatorScene();
 

@@ -58,7 +58,7 @@ public class LinkedStack<T extends Comparable<T>> implements Stack<T> {
     public void display() {
         Node current = top;
         while (current != null) {
-            System.out.print(current.data + " ");
+            System.out.print(current.data + ", ");
             current = current.next;
         }
         System.out.println();
@@ -81,6 +81,4 @@ public class LinkedStack<T extends Comparable<T>> implements Stack<T> {
             push(temp2);
         }
     }
-
-
 }
