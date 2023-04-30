@@ -13,8 +13,6 @@ import javafx.stage.Stage;
 
 public class EvaluatorScene implements Scene {
 
-    final int WIDTH = 800, HEIGHT = 600;
-
     ExpressionEvaluator expressionEvaluator = new ExpressionEvaluator();
 
     Label titleLabel;
@@ -22,6 +20,7 @@ public class EvaluatorScene implements Scene {
     Label resultLabel;
     Label notationTypeLabel;
     Label typeLabel;
+    Label noteLabel;
 
     TextField resultMessage;
     TextField expressionTextField;
@@ -45,10 +44,15 @@ public class EvaluatorScene implements Scene {
         resultLabel = new Label("Result:");
         notationTypeLabel = new Label("Notation Type:");
         typeLabel = new Label("");
+        noteLabel = new Label("Note: Enter any type of expression and press evaluate to get the result,\n" +
+                "the program will automatically detect the notation type of expression and evaluate it");
+
         resultMessage = new TextField("");
         expressionTextField = new TextField(ConvertersScene.resultMessageString);
+
         convertButton = new Button("Convert");
         evaluateButton = new Button("Evaluate");
+
         gridPane = new GridPane();
     }
 
@@ -60,6 +64,7 @@ public class EvaluatorScene implements Scene {
         gridPane.add(notationTypeLabel, 2, 9);
         gridPane.add(typeLabel, 3, 9);
         gridPane.add(evaluateButton, 0, 10);
+        gridPane.add(noteLabel, 0, 11, 5, 1);
         gridPane.add(resultLabel, 0, 16);
         gridPane.add(resultMessage, 0, 17);
         gridPane.add(convertButton, 2, 25);
@@ -87,6 +92,8 @@ public class EvaluatorScene implements Scene {
         notationTypeLabel.getStyleClass().add("label");
         notationTypeLabel.setStyle("-fx-font-weight: bold");
 
+        noteLabel.getStyleClass().add("note");
+
         resultMessage.getStyleClass().add("text-field");
 
         expressionTextField.getStyleClass().add("text-field");
@@ -99,22 +106,35 @@ public class EvaluatorScene implements Scene {
         convertButton.setOnAction(actionEvent -> {
             ConvertersScene convertersScene = new ConvertersScene();
 
-
             Stage stage = Main.getStage();
             stage.setTitle("Expression Converter");
             stage.setScene(convertersScene.getScene());
         });
 
         evaluateButton.setOnAction(actionEvent -> {
-            Expression expression = new Expression(expressionTextField.getText());
-            typeLabel.setText(expression.getNotationType());
-            resultMessage.setText(String.valueOf(expressionEvaluator.evaluateExpression(expression)));
+
+            String exp = expressionTextField.getText();
+            if (exp == null) {
+                typeLabel.setText("Empty String");
+                resultMessage.setText("Please enter an expression");
+            } else {
+                Expression expression = new Expression(exp);
+                if (expression.isBalanced()) {
+                    resultMessage.setStyle("-fx-text-fill: BLACK");
+                    typeLabel.setText(expression.getNotationType());
+                    resultMessage.setText(String.valueOf(expressionEvaluator.evaluateExpression(expression)));
+                } else {
+                    typeLabel.setText("Invalid Expression");
+                    resultMessage.setStyle("-fx-text-fill: RED");
+                    resultMessage.setText("Please enter a valid expression (Unbalanced Parenthesis)");
+                }
+            }
         });
     }
 
     @Override
     public javafx.scene.Scene getScene() {
-        javafx.scene.Scene scene = new javafx.scene.Scene(gridPane, WIDTH, HEIGHT);
+        javafx.scene.Scene scene = new javafx.scene.Scene(gridPane, Scene.WIDTH, Scene.HEIGHT);
         scene.getStylesheets().add("ApplicationStyles.css");
         return scene;
     }

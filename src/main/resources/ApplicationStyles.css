@@ -10,7 +10,7 @@
     -fx-alignment: center;
     -fx-font-size: 20px;
     -fx-font-weight: bold;
-    -fx-background-color:  #D3D3D3;
+    -fx-background-color: #D3D3D3;
     -fx-text-fill: black;
     -fx-font-family: "Arial";
     -fx-label-padding: 4px;
@@ -23,7 +23,7 @@
     -fx-text-fill: #0147d0;
 }
 
-.text-field{
+.text-field {
     -fx-font-size: 20px;
     -fx-padding: 10px;
     -fx-border-radius: 0;
@@ -32,12 +32,21 @@
     -fx-border-width: 3;
 }
 
-.label{
+.label {
     -fx-font-size: 22;
     -fx-text-fill: #252526;
     -fx-font-family: Arial;
     -fx-alignment: center;
 }
+
+.note {
+    -fx-font-size: 15;
+    -fx-font-weight: bold;
+    -fx-text-fill: #252526;
+    -fx-font-family: Arial;
+    -fx-alignment: center;
+}
+
 .root {
     -fx-background-color: linear-gradient(to bottom, #8AAAE5, antiquewhite);
 }

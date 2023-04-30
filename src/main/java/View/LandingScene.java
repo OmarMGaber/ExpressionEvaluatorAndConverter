@@ -10,16 +10,13 @@ import javafx.stage.Stage;
 
 public class LandingScene implements Scene {
 
-
     ConvertersScene convertersScene = new ConvertersScene();
     EvaluatorScene evaluatorScene = new EvaluatorScene();
-
-    final int WIDTH = 800, HEIGHT = 600;
 
     Label titleLabel;
 
     Button evaluateButton;
-    public Button converterButton;
+    Button converterButton;
 
     static GridPane gridPane;
 
@@ -76,7 +73,7 @@ public class LandingScene implements Scene {
 
     @Override
     public javafx.scene.Scene getScene() {
-        javafx.scene.Scene scene = new javafx.scene.Scene(gridPane, WIDTH, HEIGHT);
+        javafx.scene.Scene scene = new javafx.scene.Scene(gridPane, Scene.WIDTH, Scene.HEIGHT);
         scene.getStylesheets().add("ApplicationStyles.css");
         return scene;
     }

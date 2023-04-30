@@ -37,5 +37,7 @@ public class MainTest {
 //        System.out.println(expressionEvaluator.evaluateExpression(exp));
 
 
+        Expression e = new Expression("");
+        System.out.println("isBalanced: " + e.isBalanced());
     }
 }

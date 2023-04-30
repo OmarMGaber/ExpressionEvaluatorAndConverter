@@ -4,6 +4,8 @@ import javafx.scene.Node;
 
 public interface Scene {
 
+    final int WIDTH = 800, HEIGHT = 600;
+
     void initializeControls();
 
     void renderScene();
@@ -15,5 +17,4 @@ public interface Scene {
     javafx.scene.Scene getScene();
 
     Node getAsElement();
-
 }

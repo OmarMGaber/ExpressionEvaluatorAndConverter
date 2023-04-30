@@ -17,8 +17,6 @@ import javafx.stage.Stage;
 
 public class ConvertersScene implements Scene {
 
-    final int WIDTH = 800, HEIGHT = 600;
-
     Label titleLabel;
     Label enterLabel;
     Label resultLabel;
@@ -108,7 +106,7 @@ public class ConvertersScene implements Scene {
                         resultMessage.setText(expressionConverter.infixToPostfix(expression));
                     } else {
                         resultMessage.setStyle("-fx-text-fill: RED");
-                        resultMessage.setText("Invalid input (Unbalanced expression)");
+                        resultMessage.setText("Invalid input (Unbalanced Parenthesis)");
                     }
                     break;
                 case "Infix to Prefix":
@@ -144,7 +142,7 @@ public class ConvertersScene implements Scene {
 
     @Override
     public javafx.scene.Scene getScene() {
-        javafx.scene.Scene scene = new javafx.scene.Scene(gridPane, WIDTH, HEIGHT);
+        javafx.scene.Scene scene = new javafx.scene.Scene(gridPane, Scene.WIDTH, Scene.HEIGHT);
         scene.getStylesheets().add("ApplicationStyles.css");
         return scene;
     }

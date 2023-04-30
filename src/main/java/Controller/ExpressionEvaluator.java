@@ -9,14 +9,24 @@ public class ExpressionEvaluator {
     static ExpressionConverter expressionConverter = new ExpressionConverter();
 
     public static double evaluateExpression(Expression exp) {
-        if (exp.isPostfix()) {
-            return evaluatePostfix(exp);
-        } else if (exp.isInfix()) {
-            return evaluatePostfix(new Expression(expressionConverter.infixToPostfix(exp)));
-        } else if (exp.isPrefix()) {
-            return evaluatePostfix(new Expression(expressionConverter.infixToPostfix(exp)));
-        } else {
-            return -1.0;
+//        if (exp.isPostfix()) {
+//            return evaluatePostfix(exp);
+//        } else if (exp.isInfix()) {
+//            return evaluatePostfix(new Expression(expressionConverter.infixToPostfix(exp)));
+//        } else if (exp.isPrefix()) {
+//            return evaluatePostfix(new Expression(expressionConverter.infixToPostfix(exp)));
+//        } else {
+//            return -1.0;
+//        }
+        switch (exp.getNotationType()) {
+            case "Postfix":
+                return evaluatePostfix(exp);
+            case "Infix":
+                return evaluatePostfix(new Expression(expressionConverter.infixToPostfix(exp)));
+            case "Prefix":
+                return evaluatePostfix(new Expression(expressionConverter.infixToPostfix(exp)));
+            default:
+                return -1.0;
         }
     }
 
